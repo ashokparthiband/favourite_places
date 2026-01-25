@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../providers/places_provider.dart';
 import '../models/place.dart';
 import 'add_place.dart';
+import 'place_details.dart';
 
 class PlacesListPage extends ConsumerWidget {
   const PlacesListPage({Key? key}) : super(key: key);
@@ -52,6 +53,7 @@ class PlaceCard extends ConsumerWidget {
       direction: DismissDirection.endToStart,
       onDismissed: (direction) {
         ref.read(placesProvider.notifier).removePlace(place.id);
+        ScaffoldMessenger.of(context).clearSnackBars();
         ScaffoldMessenger.of(
           context,
         ).showSnackBar(SnackBar(content: Text('${place.title} deleted')));
@@ -65,6 +67,13 @@ class PlaceCard extends ConsumerWidget {
       child: Card(
         margin: const EdgeInsets.all(8),
         child: ListTile(
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => PlaceDetailsPage(place: place),
+              ),
+            );
+          },
           leading: Container(
             width: 60,
             height: 60,
