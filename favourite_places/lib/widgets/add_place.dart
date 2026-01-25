@@ -32,7 +32,6 @@ class _AddPlacePageState extends ConsumerState<AddPlacePage> {
   void _savePlace() {
     if (_formKey.currentState!.validate()) {
       final newPlace = Place(
-        id: DateTime.now().toString(),
         title: _titleController.text,
         description: _descriptionController.text,
       );
