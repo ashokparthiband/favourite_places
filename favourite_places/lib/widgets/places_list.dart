@@ -74,14 +74,25 @@ class PlaceCard extends ConsumerWidget {
               ),
             );
           },
-          leading: Container(
-            width: 60,
-            height: 60,
-            decoration: BoxDecoration(
-              color: Colors.grey,
-              borderRadius: BorderRadius.circular(4),
+          leading: Hero(
+            tag: place.id,
+            child: Container(
+              width: 60,
+              height: 60,
+              decoration: BoxDecoration(
+                color: Colors.grey.shade200,
+                borderRadius: BorderRadius.circular(4),
+              ),
+              clipBehavior: Clip.hardEdge,
+              child: place.image != null
+                  ? Image.file(
+                      place.image!,
+                      fit: BoxFit.cover,
+                      width: 60,
+                      height: 60,
+                    )
+                  : const Icon(Icons.place, color: Colors.grey),
             ),
-            child: const Icon(Icons.place),
           ),
           title: Text(place.title),
           subtitle: Text(place.description),

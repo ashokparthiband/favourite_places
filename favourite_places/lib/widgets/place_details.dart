@@ -26,11 +26,24 @@ class PlaceDetailsPage extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Hero image section
-            Container(
-              width: double.infinity,
-              height: 300,
-              color: Colors.grey[700],
-              child: const Icon(Icons.place, size: 100, color: Colors.grey),
+            Hero(
+              tag: place.id,
+              child: Container(
+                width: double.infinity,
+                height: 300,
+                decoration: BoxDecoration(color: Colors.grey[700]),
+                clipBehavior: Clip.hardEdge,
+                child: place.image != null
+                    ? Image.file(
+                        place.image!,
+                        fit: BoxFit.cover,
+                        width: double.infinity,
+                        height: 300,
+                      )
+                    : const Center(
+                        child: Icon(Icons.place, size: 100, color: Colors.grey),
+                      ),
+              ),
             ),
             // Content section
             Padding(
