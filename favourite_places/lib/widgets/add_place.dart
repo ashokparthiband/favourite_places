@@ -1,10 +1,13 @@
+import 'dart:io';
+
+import 'package:favourite_places/widgets/image_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/place.dart';
 import '../providers/places_provider.dart';
 
 class AddPlacePage extends ConsumerStatefulWidget {
-  const AddPlacePage({Key? key}) : super(key: key);
+  const AddPlacePage({super.key});
 
   @override
   ConsumerState<AddPlacePage> createState() => _AddPlacePageState();
@@ -14,6 +17,7 @@ class _AddPlacePageState extends ConsumerState<AddPlacePage> {
   final _formKey = GlobalKey<FormState>();
   late TextEditingController _titleController;
   late TextEditingController _descriptionController;
+  File? _selectedImage;
 
   @override
   void initState() {
@@ -34,6 +38,7 @@ class _AddPlacePageState extends ConsumerState<AddPlacePage> {
       final newPlace = Place(
         title: _titleController.text,
         description: _descriptionController.text,
+        image: _selectedImage,
       );
 
       ref.read(placesProvider.notifier).addPlace(newPlace);
@@ -113,6 +118,12 @@ class _AddPlacePageState extends ConsumerState<AddPlacePage> {
                       return 'Please enter a description';
                     }
                     return null;
+                  },
+                ),
+                const SizedBox(height: 24),
+                ImageInput(
+                  onSelectImage: (pickedImage) {
+                    _selectedImage = pickedImage;
                   },
                 ),
                 const SizedBox(height: 24),
